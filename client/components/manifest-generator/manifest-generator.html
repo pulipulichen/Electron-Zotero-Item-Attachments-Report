@@ -1,0 +1,100 @@
+<form class="ui form segment">
+  
+  <h2>
+    Project's manifest.json
+  </h2>
+  
+  <div class="two fields">
+    <div class="field">
+      <label>Name</label>
+      <input type="text" v-model="name" onfocus="this.select()" />
+    </div>
+    <div class="field">
+      <label>Short Name</label>
+      <input type="text" v-model="short_name" onfocus="this.select()" />
+    </div>
+  </div>
+  
+  <div class="field">
+    <label>Description</label>
+    <textarea v-model="description" onfocus="this.select()"></textarea>
+  </div>
+  
+  <div class="two fields">
+    <div class="field">
+      <label>Theme Color</label>
+      <div class="ui action input">
+        <input type="text" v-model="theme_color" onfocus="this.select()" />
+        <div class="ui basic button"
+             v-bind:style="{'background-color': theme_color + ' !important'}"
+             v-on:click="selectThemeColor">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Background Color</label>
+      <div class="ui action input">
+        <input type="text" v-model="background_color" onfocus="this.select()" />
+        <div class="ui basic button"
+             v-bind:style="{'background-color': background_color + ' !important'}"
+             v-on:click="selectBackgroundColor">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="three fields">
+    <div class="field">
+      <label>Favicon Search</label>
+      <div class="ui action input">
+        <input type="text" v-model="searchFaviconQuery" />
+        <button type="button" class="ui button"
+                v-bind:class="{disabled: (searchFaviconQuery.trim() === '')}"
+                v-on:click="searchFavicon">
+          <i class="ui search icon"></i>
+        </button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Favicon Generator</label>
+      <a href="https://www.favicon-generator.org/#favcontent" 
+         target="favion-generator"
+         class="ui fluid button">
+        Build Favicon
+      </a>
+    </div>
+    <div class="field">
+      <label>Favicon Path</label>
+      <input type="text" v-model="iconsPath" onfocus="this.select()" />
+    </div>
+  </div>
+  
+  <h3 class="ui horizontal divider header">
+    Output
+  </h3>
+  
+  <div class="field">
+    <label>manifest.json</label>
+    <textarea v-model="manifestJSON" onfocus="this.select()"></textarea>
+    <div class="ui bottom attached fluid buttons">
+      <button type="button" 
+              class="ui button"
+              v-on:click="saveManifestJSON">SAVE</button>
+      <button v-bind:class="{positive: !copiedManifestJSON}" 
+              type="button" 
+              class="ui button"
+              v-on:click="copyManifestJSON">COPY</button>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label>&lt;header&gt;</label>
+    <textarea v-model="headerHTML" onfocus="this.select()"></textarea>
+    <button v-bind:class="{positive: !copiedHeaderHTML}" type="button" class="ui bottom attached fluid button"
+            v-on:click="copyHeaderHTML">COPY</button>
+  </div>
+  
+</form>

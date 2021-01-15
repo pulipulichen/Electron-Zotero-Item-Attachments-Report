@@ -1,0 +1,31 @@
+<div class="ui modal" ref="Modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Color Selector
+  </div>
+  <div class="content ui form">
+    <select v-model="currentColorSet">
+      <option v-for="option in colorSets" 
+              v-bind:value="option.name">{{ option.label }}</option>
+    </select>
+    
+    <table class="palette ui table">
+      <tbody>
+        <tr v-for="lineColor in currentColors">
+          <td v-for="color in lineColor"
+              v-bind:style="{'background-color': color}"
+              v-on:click="select(color)">
+            
+            <!--
+            <div class="text"
+                 v-bind:class="{highlight: (color === highlightColor)}">{{ color }}</div>
+            -->
+            <i class="ui map marker icon"
+               v-bind:class="{visible: (color === highlightColor)}">
+            </i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
