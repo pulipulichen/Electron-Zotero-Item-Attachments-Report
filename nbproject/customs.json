@@ -1,0 +1,12 @@
+{
+  "elements": {
+    "app-header": {},
+    "attachments-reporter": {}
+  },
+  "attributes": {
+    "v-bind:class": {},
+    "v-on:click": {},
+    "v-html": {},
+    "v-model": {}
+  }
+}

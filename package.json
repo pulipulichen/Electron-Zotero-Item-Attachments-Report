@@ -8,10 +8,12 @@
     "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/Electron-Zotero-Item-Attachmens-Report.git"
   },
   "scripts": {
-    "start-electron": "electron ."
+    "start-electron": "electron .",
+    "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [
-    "PWA"
+    "PWA",
+    "Zotero"
   ],
   "author": "Pulipuli Chen <blog@pulipuli.info>",
   "license": "MIT",
@@ -42,7 +44,11 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
+    "electron-builder": "^22.9.1",
+    "electron-rebuild": "^2.3.4",
     "glob-all": "^3.2.1",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "node-pre-gyp": "^0.17.0",
+    "sqlite3": "^4.2.0"
   }
 }

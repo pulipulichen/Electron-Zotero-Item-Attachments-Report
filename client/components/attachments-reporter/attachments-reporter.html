@@ -1,0 +1,86 @@
+<form class="ui form segment">
+  
+  <h2>
+    Attachments Report
+  </h2>
+  
+  <div class="field">
+    <label>Zotero User ID</label>
+    <input type="text" placeholder="" v-model="zoteroUserID"
+           onfocus="this.select()">
+  </div>
+  
+  <div class="field">
+    <label>Zotero SQLite Path</label>
+    <input type="text" placeholder="" v-model="sqlitePath"
+           onfocus="this.select()">
+  </div>
+  
+  <div class="two fields">
+    <div class="field">
+      <label>Item Search</label>
+      <div class="ui action input">
+        <input type="text" placeholder="" v-model="itemTitle"
+               onfocus="this.select()">
+        <button type="button"
+                class="ui button"
+                v-bind:class="{disabled: (itemTitle === '' || zoteroUserID === '')}"
+          v-on:click="searchItem">
+          <i class="search icon"></i>
+        </button>
+      </div>
+        
+    </div>
+    <div class="field">
+      <label>Item ID</label>
+      <div class="ui input">
+        <input type="text" placeholder="" v-model="itemID"
+               onfocus="this.select()">
+      </div>
+    </div>
+  </div>
+    
+  <div class="field">
+    <label>
+      Filter Types
+    </label>
+    <textarea v-model="typeFilterText"></textarea>
+    
+  </div>
+  
+  <div class="field">
+    <button class="ui fluid button"
+              type="button"
+              v-on:click="getAttachments"
+              v-bind:class="{disabled: (itemID === '' || sqlitePath === '')}">GET ATTACHMENTS</button>
+  </div>
+  
+  <h3 class="ui horizontal divider header">
+    Output
+  </h3>
+  
+  <div class="field">
+    <label>
+      Attachments
+    </label>
+    <textarea v-html="attachmentsText"
+              class="bottom attached"></textarea>
+    <div class="ui fluid bottom attached buttons"
+         v-bind:class="{disabled: (attachmentRows.length === 0)}">
+      <button type="button" 
+              class="ui button"
+              v-on:click="copyAttachmentsText"
+              v-bind:class="{disabled: (attachmentRows.length === 0)}">
+        COPY
+      </button>
+      <button type="button" 
+              class="ui button"
+              v-on:click="openLinks"
+              v-bind:class="{disabled: (attachmentRows.length === 0)}">
+        OPEN LINKS
+      </button>
+    </div>
+      
+  </div>
+  
+</form>

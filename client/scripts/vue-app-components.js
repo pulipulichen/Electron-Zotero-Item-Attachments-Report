@@ -5,7 +5,5 @@
 var appComponents = {
   //'template': httpVueLoader('./components/template.vue'),
   'app-header': httpVueLoader('./components/app-header/app-header.vue'),
-  'manifest-generator': httpVueLoader('./components/manifest-generator/manifest-generator.vue'),
-  'color-selector': httpVueLoader('./components/color-selector/color-selector.vue'),
-  'project-file-list': httpVueLoader('./components/project-file-list/project-file-list.vue')
+  'attachments-reporter': httpVueLoader('./components/attachments-reporter/attachments-reporter.vue')
 }
