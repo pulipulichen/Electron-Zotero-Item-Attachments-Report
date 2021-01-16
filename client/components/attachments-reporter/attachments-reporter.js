@@ -15,6 +15,7 @@ module.exports = {
       itemID: 'LTCUSNNK',
       typeFilterText: '.pdf',
       attachmentRows: []
+      
     }
   },
   async mounted () {
@@ -70,6 +71,16 @@ module.exports = {
     },
     typeFilter () {
       return this.typeFilterText.trim().split('\n').map(l => l.trim())
+    },
+    bookKey () {
+      let keys = []
+      this.attachmentRowsFiltered.map(attachment => {
+        if (keys.indexOf(attachment.bookKey) === -1) {
+          keys.push(attachment.bookKey)
+        }
+      })
+      
+      return keys
     }
   },
   methods: {

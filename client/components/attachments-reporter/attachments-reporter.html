@@ -66,6 +66,16 @@
   </h3>
   
   <div class="field">
+    <label>Book Key</label>
+    <div class="ui input"
+         v-bind:class="{error: bookKey > 1}">
+      <input type="text" placeholder="" v-model="bookKey.join(',')"
+             onfocus="this.select()">
+    </div>
+      
+  </div>
+  
+  <div class="field">
     <label>
       Attachments
     </label>

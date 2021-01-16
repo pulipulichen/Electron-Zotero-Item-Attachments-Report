@@ -22,7 +22,7 @@ let events = {
     
     let sql
     if (itemID) {
-      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book
+      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
@@ -34,7 +34,7 @@ and bookItem.key = '${itemID}'
 order by title asc`
     }
     else if (itemTitle) {
-      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book
+      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
