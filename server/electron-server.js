@@ -11,7 +11,7 @@ const sqlite3 = require("sqlite3").verbose();
 let events = {
   getAttachments: function (event, parameters, _callback_id) {
 
-    let {sqlitePath, itemID} = parameters
+    let {sqlitePath, itemID, itemTitle} = parameters
     
     if (fs.existsSync(sqlitePath + '-journal')) {
       return event.sender.send(_callback_id, false)
@@ -20,7 +20,9 @@ let events = {
     var db = new sqlite3.Database(sqlitePath)
     db.configure('busyTimeout', 15000)
     
-    db.all(`select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book
+    let sql
+    if (itemID) {
+      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
@@ -29,7 +31,22 @@ and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
 and itemData.itemID = bookItem.itemID
 and bookItem.key = '${itemID}'
-order by title asc`, function(err,rows){
+order by title asc`
+    }
+    else if (itemTitle) {
+      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book
+from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
+where itemAttachments.parentItemID = bookItem.itemID
+and itemAttachments.itemID = attachmentItem.itemID
+and fields.fieldName = 'title'
+and fields.fieldID = itemData.fieldID
+and itemData.valueID = itemDataValues.valueID
+and itemData.itemID = bookItem.itemID
+and itemDataValues.value = '${itemTitle}'
+order by title asc`
+    }
+    
+    db.all(sql, function(err,rows){
       //console.log(rows)
       if (err) {
         return event.sender.send(_callback_id, false)

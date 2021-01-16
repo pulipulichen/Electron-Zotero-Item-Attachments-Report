@@ -18,7 +18,12 @@
   
   <div class="two fields">
     <div class="field">
-      <label>Item Search</label>
+      <label>Item Title</label>
+      <div class="ui input">
+        <input type="text" placeholder="" v-model="itemTitle"
+               onfocus="this.select()">
+      </div>
+      <!--
       <div class="ui action input">
         <input type="text" placeholder="" v-model="itemTitle"
                onfocus="this.select()">
@@ -29,6 +34,7 @@
           <i class="search icon"></i>
         </button>
       </div>
+      -->
         
     </div>
     <div class="field">
@@ -52,7 +58,7 @@
     <button class="ui fluid button"
               type="button"
               v-on:click="getAttachments"
-              v-bind:class="{disabled: (itemID === '' || sqlitePath === '')}">GET ATTACHMENTS</button>
+              v-bind:class="{disabled: ((itemID === '' && itemTitle === '') || sqlitePath === '')}">GET ATTACHMENTS</button>
   </div>
   
   <h3 class="ui horizontal divider header">

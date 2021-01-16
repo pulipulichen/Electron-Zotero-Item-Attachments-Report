@@ -6,7 +6,7 @@ module.exports = {
     
     return {
       cacheKey: 'attachments-reporter',
-      cacheAttrs: ['sqlitePath', 'itemID', 'zoteroUserID', 'typeFilterText'],
+      cacheAttrs: ['sqlitePath', 'itemID', 'zoteroUserID', 'typeFilterText', 'itemTitle'],
       inited: false,
       
       zoteroUserID: 'pulipuli',
@@ -34,6 +34,9 @@ module.exports = {
       this.dataSave()
     },
     typeFilterText () {
+      this.dataSave()
+    },
+    itemTitle () {
       this.dataSave()
     },
   },
@@ -118,6 +121,7 @@ module.exports = {
       ipcRenderer.send('getAttachments', {
         sqlitePath: this.sqlitePath,
         itemID: this.itemID,
+        itemTitle: this.itemTitle,
       }, callbackID);
     },
     copyAttachmentsText () {
