@@ -1,11 +1,11 @@
 {
-  "name": "Electron-Zotero-Item-Attachmens-Report",
+  "name": "Electron-Zotero-Item-Attachments-Report",
   "version": "1.0.0",
   "description": "Generate a report of a Zotero item's attachments.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/Electron-Zotero-Item-Attachmens-Report.git"
+    "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report.git"
   },
   "scripts": {
     "start-electron": "electron .",
@@ -18,9 +18,9 @@
   "author": "Pulipuli Chen <blog@pulipuli.info>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pulipulichen/Electron-Zotero-Item-Attachmens-Report/issues"
+    "url": "https://github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report/issues"
   },
-  "homepage": "https://github.com/pulipulichen/Electron-Zotero-Item-Attachmens-Report#readme",
+  "homepage": "https://github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report#readme",
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.6.0",

@@ -1,7 +1,7 @@
-# Electron-Zotero-Item-Attachmens-Report
+# Electron-Zotero-Item-Attachments-Report
 Generate a report of a Zotero item's attachments.
 
-GitHub Repo: https://github.com/pulipulichen/Electron-Zotero-Item-Attachmens-Report
+GitHub Repo: https://github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report
 
 # Electron
 
