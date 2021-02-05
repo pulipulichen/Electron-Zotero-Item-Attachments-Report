@@ -187,6 +187,11 @@ module.exports = {
         if (this.bookKey[0] && this.itemID === '') {
           this.itemID = this.bookKey[0]
         }
+        
+        setTimeout(() => {
+          this.$refs.CopyAttachmentsTextButton.scrollIntoView()
+          this.$refs.CopyAttachmentsTextButton.focus()
+        }, 0)
       })
       
       this.isLoading = true
