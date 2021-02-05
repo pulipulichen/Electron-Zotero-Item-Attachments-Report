@@ -1,27 +1,66 @@
 <form class="ui form segment">
   
-  <h2>
-    Attachments Report
-  </h2>
+  <h3 class="ui horizontal divider header">
+    Data
+  </h3>
+  
+  <div class="three fields">
+    <div class="field">
+      <label>Spreadsheet Link</label>
+      <div class="ui action input">
+        <input type="url" placeholder="" v-model="spreadsheetURL" />
+        <button class="ui button" type="button"
+                v-bind:class="{disabled: isOpenSpreadsheetDisabled}"
+                v-on:click="openSpreadsheetURL">Open</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Zotero Link</label>
+      <div class="ui action input">
+        <input type="url" placeholder="" v-model="zoteroURL" />
+        <button class="ui button" type="button"
+                v-bind:class="{disabled: isOpenZoteroDisabled}"
+                v-on:click="openZoteroURL">Open</button>
+      </div>
+    </div>
+    
+    <div class="field">
+      <label>Added Tag</label>
+      <div class="ui action input">
+        <input type="url" placeholder="" v-model="zoteroAddedTag" />
+        <button class="ui button" type="button"
+                v-bind:class="{disabled: (zoteroAddedTag === '')}"
+                v-on:click="copyZoteroAddedTag">Copy</button>
+      </div>
+    </div>
+  </div>
+  
+    
+  
+  <h3 class="ui horizontal divider header">
+    Input
+  </h3>
   
   <div class="field">
     <label>Zotero User ID</label>
     <input type="text" placeholder="" v-model="zoteroUserID"
-           onfocus="this.select()">
+           onfocus="this.select()" />
   </div>
   
   <div class="field">
     <label>Zotero SQLite Path</label>
     <input type="text" placeholder="" v-model="sqlitePath"
-           onfocus="this.select()">
+           onfocus="this.select()" />
   </div>
   
-  <div class="two fields">
+  <div class="three fields">
     <div class="field">
       <label>Item Title</label>
       <div class="ui input">
         <input type="text" placeholder="" v-model="itemTitle"
-               onfocus="this.select()">
+               onfocus="this.select()"
+               v-on:change="attachmentRows = attachmentRows.slice(0,0); itemID = ''" />
       </div>
       <!--
       <div class="ui action input">
@@ -41,7 +80,15 @@
       <label>Item ID</label>
       <div class="ui input">
         <input type="text" placeholder="" v-model="itemID"
-               onfocus="this.select()">
+               onfocus="this.select()"
+               v-on:change="attachmentRows = attachmentRows.slice(0,0); itemTitle = ''" />
+      </div>
+    </div>
+    <div class="field">
+      <label>Tag</label>
+      <div class="ui input">
+        <input type="text" placeholder="" v-model="tag"
+               onfocus="this.select()" />
       </div>
     </div>
   </div>
@@ -58,45 +105,86 @@
     <button class="ui fluid button"
               type="button"
               v-on:click="getAttachments"
-              v-bind:class="{disabled: ((itemID === '' && itemTitle === '') || sqlitePath === '')}">GET ATTACHMENTS</button>
+              v-bind:class="{disabled: ((itemID === '' && itemTitle === '') || sqlitePath === '')}"
+              v-if="isLoading === false">
+      GET ATTACHMENTS
+    </button>
+    <button class="ui fluid disabled button"
+            type="button"
+            v-if="isLoading">
+      LOADING
+    </button>
   </div>
   
-  <h3 class="ui horizontal divider header">
-    Output
-  </h3>
-  
-  <div class="field">
-    <label>Book Key</label>
-    <div class="ui input"
-         v-bind:class="{error: bookKey > 1}">
-      <input type="text" placeholder="" v-model="bookKey.join(',')"
-             onfocus="this.select()">
+  <template v-if="attachmentRows.length > 0">
+    <h3 class="ui horizontal divider header">
+      Output
+    </h3>
+
+    <div class="field">
+      <label>
+        Attachments
+      </label>
+      <textarea v-html="attachmentsText"
+                onfocus="this.select()"
+                class="bottom attached"></textarea>
+      <div class="ui fluid bottom attached buttons"
+           v-bind:class="{disabled: (attachmentRows.length === 0)}">
+        <button type="button" 
+                class="ui button"
+                ref="CopyAttachmentsTextButton"
+                v-on:click="copyAttachmentsText"
+                v-bind:class="{disabled: (attachmentRows.length === 0)}">
+          COPY
+        </button>
+        <button type="button" 
+                class="ui button"
+                v-on:click="openLinks"
+                v-bind:class="{disabled: (attachmentRows.length === 0)}">
+          OPEN LINKS
+        </button>
+      </div>
     </div>
-      
-  </div>
-  
-  <div class="field">
-    <label>
-      Attachments
-    </label>
-    <textarea v-html="attachmentsText"
-              class="bottom attached"></textarea>
-    <div class="ui fluid bottom attached buttons"
-         v-bind:class="{disabled: (attachmentRows.length === 0)}">
-      <button type="button" 
-              class="ui button"
-              v-on:click="copyAttachmentsText"
-              v-bind:class="{disabled: (attachmentRows.length === 0)}">
-        COPY
-      </button>
-      <button type="button" 
-              class="ui button"
-              v-on:click="openLinks"
-              v-bind:class="{disabled: (attachmentRows.length === 0)}">
-        OPEN LINKS
-      </button>
+    
+    <div class="field">
+      <label>Cover</label>
+      <div class="ui action input">
+        <input type="url" placeholder="" v-model="coverURL" />
+        <button class="ui button" type="button"
+                v-bind:class="{disabled: isCopyCoverThumbnailDisabled}"
+                v-on:click="copyCoverThumbnail">Copy Thumbnail</button>
+      </div>
     </div>
-      
-  </div>
-  
+    
+    <div class="field">
+      <label>Book Key</label>
+      <div class="ui input"
+           v-bind:class="{error: bookKey > 1}">
+        <input type="text" placeholder="" v-model="bookKey.join(',')"
+               onfocus="this.select()" />
+      </div>
+
+      <template v-if="(bookText.length > 0 && itemID !== '')">
+        <textarea v-html="bookText"
+                  onfocus="this.select()"
+                  class="book-text"></textarea>
+        <div class="ui fluid bottom attached buttons"
+             v-bind:class="{disabled: (bookText.length === 0 || itemID === '')}">
+          <button type="button" 
+                  class="ui button"
+                  v-on:click="copyBookText"
+                  v-bind:class="{disabled: (bookText.length === 0 || itemID === '')}">
+            COPY
+          </button>
+          <button type="button" 
+                  class="ui button"
+                  v-on:click="openSearchCover"
+                  v-bind:class="{disabled: (bookText.length === 0 || itemID === '')}">
+            SEARCH COVER
+          </button>
+        </div>
+      </template>
+    </div>
+
+  </template>
 </form>

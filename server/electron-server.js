@@ -31,6 +31,7 @@ and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
 and itemData.itemID = bookItem.itemID
 and bookItem.key = '${itemID}'
+and substr(itemAttachments.path, 9) IS NOT NULL
 order by title asc`
     }
     else if (itemTitle) {
@@ -43,6 +44,7 @@ and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
 and itemData.itemID = bookItem.itemID
 and itemDataValues.value = '${itemTitle}'
+and substr(itemAttachments.path, 9) IS NOT NULL
 order by title asc`
     }
     

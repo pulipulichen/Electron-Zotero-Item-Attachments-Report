@@ -5,6 +5,7 @@
   },
   "attributes": {
     "v-bind:class": {},
+    "v-if": {},
     "v-on:click": {},
     "v-html": {},
     "v-model": {}
