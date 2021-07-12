@@ -13,9 +13,9 @@ let events = {
 
     let {sqlitePath, itemID, itemTitle} = parameters
     
-    if (fs.existsSync(sqlitePath + '-journal')) {
-      return event.sender.send(_callback_id, false)
-    }
+    //if (fs.existsSync(sqlitePath + '-journal')) {
+    //  return event.sender.send(_callback_id, false)
+    //}
     
     var db = new sqlite3.Database(sqlitePath)
     db.configure('busyTimeout', 15000)
@@ -43,10 +43,12 @@ and fields.fieldName = 'title'
 and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
 and itemData.itemID = bookItem.itemID
-and itemDataValues.value = '${itemTitle}'
+and itemDataValues.value LIKE '%${itemTitle}%'
 and substr(itemAttachments.path, 9) IS NOT NULL
 order by title asc`
     }
+    
+    //console.log(sql)
     
     db.all(sql, function(err,rows){
       //console.log(rows)

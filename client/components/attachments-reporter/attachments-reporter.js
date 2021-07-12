@@ -14,7 +14,7 @@ module.exports = {
       zoteroURL: '',
       itemTitle: '',
       itemID: '',
-      typeFilterText: '.pdf',
+      typeFilterText: '.pdf\n.epub',
       attachmentRows: [],
       tag: '',
       
@@ -82,14 +82,29 @@ module.exports = {
           0,
           '',
           'FALSE',
-          attachment.book,
+          this.bookTitle,
           dayjs().subtract(7, 'day').format('M/DD/YYYY hh:mm:ss')
         ].join('\t')
       }).join('\n')
     },
+    bookTitle () {
+      if (this.attachmentRowsFiltered.length === 0) {
+        return ''
+      }
+      else {
+        let title = this.attachmentRowsFiltered[0].book.trim()
+        if (title.indexOf('=')) {
+          title = title.slice(0, title.indexOf('=')).trim()
+        }
+        if (title.indexOf(' by ') && title.length > 10) {
+          title = title.slice(0, title.indexOf(' by ')).trim()
+        }
+        return title
+      }
+    },
     bookText () {
       return [
-          this.itemTitle,
+          this.bookTitle,
           this.coverThumbnail,
           this.tag,
           this.itemID,
@@ -119,17 +134,20 @@ module.exports = {
               || !this.zoteroURL.startsWith('https://www.zotero.org/'))
     },
     isCopyCoverThumbnailDisabled () {
-      return (this.coverURL === '' 
-              || !this.coverURL.startsWith('https://drive.google.com/file/d/'))
+      return (this.coverURL === '')
     },
     coverThumbnail () {
       if (this.isCopyCoverThumbnailDisabled) {
         return ''
       }
-      
-      let fileID = this.coverURL.split('/')[5]
-      let url = `https://drive.google.com/thumbnail?id=${fileID}&sz=w1600-h1600`
-      return url
+      if (this.coverURL.startsWith('https://drive.google.com/file/d/')) {
+        let fileID = this.coverURL.split('/')[5]
+        let url = `https://drive.google.com/thumbnail?id=${fileID}&sz=w1600-h1600`
+        return url
+      }
+      else {
+        return this.coverURL.trim()
+      }
     }
   },
   methods: {
@@ -173,10 +191,12 @@ module.exports = {
       ipcRenderer.on(callbackID, (event, rows) => {
         //console.log(rows)
         if (rows === false) {
+          this.isLoading = false
           return window.alert('Zotero SQLite Database is busy.')
         }
         
         if (rows.length === 0) {
+          this.isLoading = false
           return window.alert('Not found')
         }
         
@@ -191,6 +211,7 @@ module.exports = {
         setTimeout(() => {
           this.$refs.CopyAttachmentsTextButton.scrollIntoView()
           this.$refs.CopyAttachmentsTextButton.focus()
+          this.isLoading = false
         }, 0)
       })
       
