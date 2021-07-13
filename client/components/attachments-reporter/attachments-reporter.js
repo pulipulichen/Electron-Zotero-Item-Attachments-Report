@@ -240,7 +240,7 @@ module.exports = {
     },
     openLinks () {
       this.attachmentRowsFiltered.map(row => {
-        return `https://drive.google.com/drive/u/0/search?q=type:folder%20` + row.key
+        return `https://drive.google.com/drive/u/0/search?zotero=true&q=type:folder%20` + row.key
       }).forEach(url => {
         shell.openExternal(url)
       })
