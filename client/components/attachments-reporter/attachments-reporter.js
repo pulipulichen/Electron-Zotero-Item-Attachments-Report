@@ -8,13 +8,20 @@ module.exports = {
       cacheAttrs: ['sqlitePath', 'itemID', 'tag', 'zoteroUserID', 'typeFilterText', 'itemTitle', 'spreadsheetURL', 'zoteroURL', 'zoteroAddedTag'],
       inited: false,
       
-      zoteroUserID: 'pulipuli',
-      sqlitePath: 'D:\\OUTTY_DOCUMENT\\Zotero\\zotero.sqlite',
+      zoteroUserID: '',
+      sqlitePath: '',
       spreadsheetURL: '',
       zoteroURL: '',
       itemTitle: '',
       itemID: '',
-      typeFilterText: '.pdf\n.epub',
+      typeFilterText: `.pdf
+.epub
+.mobi
+.chm
+.xps
+.djvu
+.cbz
+.cbr`,
       attachmentRows: [],
       tag: '',
       
@@ -190,9 +197,9 @@ module.exports = {
       let callbackID = ElectronUtils.getCallbackID('getAttachments')
       ipcRenderer.on(callbackID, (event, rows) => {
         //console.log(rows)
-        if (rows === false) {
+        if (rows === false || Array.isArray(rows) === false) {
           this.isLoading = false
-          return window.alert('Zotero SQLite Database is busy.')
+          return window.alert('Zotero SQLite Database is busy: ' + rows)
         }
         
         if (rows.length === 0) {

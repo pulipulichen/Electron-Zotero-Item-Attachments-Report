@@ -27,12 +27,19 @@ app.on('activate', () => {
 })
 
 function createWindow() {
+  let isWin = (process.platform === "win32")
+  
+  let ext = 'ico'
+  if (!isWin) {
+    ext = 'png'
+  }
+  
   // Create the browser window.
   win = new BrowserWindow({
     //width: 400,
     //height: 400,
     //maximizable: false,
-    icon: path.join(__dirname, './client/img/icon/favicon.ico'),
+    icon: path.join(__dirname, './client/img/icon/favicon.' + ext),
     webPreferences: {
       nodeIntegration: true
     }

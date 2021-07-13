@@ -8,7 +8,7 @@
     "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report.git"
   },
   "scripts": {
-    "start-electron": "electron .",
+    "start-electron": "electron . --no-sandbox --force-device-scale-factor=1",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [
@@ -27,7 +27,7 @@
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
-    "electron": "^11.0.3",
+    "electron": "^11.4.8",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^4.2.0",
     "mini-css-extract-plugin": "^0.6.0",
