@@ -247,7 +247,7 @@ module.exports = {
     },
     openSearchCover () {
       // https://www.google.com/search?q=JavaScript+%E7%BC%96%E7%A8%8B%E7%B2%BE%E8%A7%A3
-      let url = 'https://www.google.com/search?q=' + encodeURIComponent(this.itemTitle) + '&sxsrf=ALeKk00pGeE5eDj08uTpzRjZNVhcByrW_w:1612533809783&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjhjK7H9NLuAhXlyosBHZXSAWgQ_AUoAnoECAYQBA&biw=931&bih=568'
+      let url = 'https://www.google.com/search?q=' + encodeURIComponent(this.bookTitle) + '&sxsrf=ALeKk00pGeE5eDj08uTpzRjZNVhcByrW_w:1612533809783&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjhjK7H9NLuAhXlyosBHZXSAWgQ_AUoAnoECAYQBA&biw=931&bih=568'
       shell.openExternal(url)
     },
     openSpreadsheetURL () {
