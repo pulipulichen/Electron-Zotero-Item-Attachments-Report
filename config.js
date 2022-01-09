@@ -1,5 +1,5 @@
 module.exports = {
   debug: {
-    openDevTools: true
+    openDevTools: false
   }
 }

@@ -2,6 +2,7 @@
 Generate a report of a Zotero item's attachments.
 
 GitHub Repo: https://github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report
+Private configuration: https://docs.google.com/spreadsheets/d/1TNaU8EFZPHUdp5WycfWUXgUIVUtyuEvueIreI89xSWA/edit#gid=0
 
 # Electron
 
