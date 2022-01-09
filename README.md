@@ -27,6 +27,17 @@ npm run postinstall
 
 This saved a lot of my time
 
+上述方法好像沒有用
+
+# .npmrc
+
+.npmrc
+python=/usr/bin/python2
+
+成功
+
 # Icon
 
 Icon: https://www.iconninja.com/note-book-icon-2040
+
+設定：https://docs.google.com/document/d/1YQxpyyddvDQM7fGf-jvTuRGT8tnEj7xESxCQpwPxykU/edit
