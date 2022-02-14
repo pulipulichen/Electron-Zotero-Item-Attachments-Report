@@ -36,6 +36,12 @@ This saved a lot of my time
 python=/usr/bin/python2
 
 成功
+20220214 這個方法失敗
+
+以下是20220214成功的方法：
+1. 先移除sqlite3
+2. ````npm install````
+3. ````npm install sqlite3````
 
 # Icon
 
