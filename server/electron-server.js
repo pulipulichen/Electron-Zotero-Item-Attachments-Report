@@ -21,8 +21,9 @@ let events = {
     db.configure('busyTimeout', 15000)
     
     let sql
+    let titleSubstr = 9
     if (itemID) {
-      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
+      sql = `select substr(itemAttachments.path, ${titleSubstr}) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
@@ -31,11 +32,11 @@ and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
 and itemData.itemID = bookItem.itemID
 and bookItem.key = '${itemID}'
-and substr(itemAttachments.path, 9) IS NOT NULL
+and substr(itemAttachments.path, ${titleSubstr}) IS NOT NULL
 order by title asc`
     }
     else if (itemTitle) {
-      sql = `select substr(itemAttachments.path, 9) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
+      sql = `select substr(itemAttachments.path, ${titleSubstr}) as title, attachmentItem.key, itemDataValues.value as book, bookItem.key as bookKey
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID

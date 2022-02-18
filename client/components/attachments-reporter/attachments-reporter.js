@@ -100,10 +100,10 @@ module.exports = {
       }
       else {
         let title = this.attachmentRowsFiltered[0].book.trim()
-        if (title.indexOf('=')) {
+        if (title.indexOf('=') > -1) {
           title = title.slice(0, title.indexOf('=')).trim()
         }
-        if (title.indexOf(' by ') && title.length > 10) {
+        if (title.indexOf(' by ') > -1 && title.length > 10) {
           title = title.slice(0, title.indexOf(' by ')).trim()
         }
         return title
