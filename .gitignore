@@ -2,3 +2,4 @@
 /node_modules/
 /[[]document/
 /docker-compose.yml
+/cache

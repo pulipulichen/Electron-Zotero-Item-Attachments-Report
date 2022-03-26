@@ -47,5 +47,7 @@ COPY ./app/ /app/
 WORKDIR /app/
 RUN npm install
 
+RUN mkdir /data
+
 RUN chmod +x /app/startup.sh
 CMD ["bash", "/app/startup.sh"]

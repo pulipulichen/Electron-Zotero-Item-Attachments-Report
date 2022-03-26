@@ -1,4 +1,4 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 cd ..
-npm run start-electron
+npm run up

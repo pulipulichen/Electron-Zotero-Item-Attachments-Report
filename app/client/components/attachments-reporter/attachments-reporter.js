@@ -9,7 +9,7 @@ module.exports = {
       inited: false,
       
       zoteroUserID: '',
-      sqlitePath: '',
+      sqlitePath: '/data/zotero.sqlite',
       spreadsheetURL: '',
       zoteroURL: '',
       itemTitle: '',
