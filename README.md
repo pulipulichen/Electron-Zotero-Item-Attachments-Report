@@ -4,47 +4,10 @@ Generate a report of a Zotero item's attachments.
 GitHub Repo: https://github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report
 Private configuration: https://docs.google.com/spreadsheets/d/1TNaU8EFZPHUdp5WycfWUXgUIVUtyuEvueIreI89xSWA/edit#gid=0
 
-# Electron
+# Setup
 
-Use SQLite3 in Electron
-https://stackoverflow.com/a/58823349/6645399
-
-If none of these are working try this.
-
-````
-npm install electron-builder
-````
-Add this in your script tag of package.json file
-
-````
- "postinstall": "electron-builder install-app-deps"
-````
-
-Then execute this
-
-````
-npm run postinstall 
-````
-
-This saved a lot of my time
-
-上述方法好像沒有用
-
-# .npmrc
-
-.npmrc
-python=/usr/bin/python2
-
-成功
-20220214 這個方法失敗
-
-以下是20220214成功的方法：
-1. 先移除sqlite3
-2. ````npm install````
-3. ````npm install sqlite3````
-
-# Icon
-
-Icon: https://www.iconninja.com/note-book-icon-2040
-
-設定：https://docs.google.com/document/d/1YQxpyyddvDQM7fGf-jvTuRGT8tnEj7xESxCQpwPxykU/edit
+1. Copy `docker-compose.example.yml` to `docker-compose.yml` .
+2. Setup Zotero path: `#- /PATH-TO-ZOTERO/Zotero/:/data` .
+3. `npm run build`
+4. `npm run up`
+5. Add `"/PATH-TO/Electron-Zotero-Item-Attachments-Report/bin/Zotero Item Attachments.sh"` to Application Menu.

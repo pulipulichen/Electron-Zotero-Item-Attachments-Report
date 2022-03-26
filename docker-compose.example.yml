@@ -14,7 +14,12 @@ services:
         - /tmp/.X11-unix:/tmp/.X11-unix
         - /etc/localtime:/etc/localtime:ro
         - /etc/hosts:/etc/hosts:ro
-        - ./download:/home/user
+        - ./app/client:/app/client
+        - ./app/server:/app/server
+        - ./app/config.js:/app/config.js
+        - ./app/index.js:/app/index.js
+        - ./cache:/home/user/.config/Electron-Zotero-Item-Attachments-Report/Local Storage/leveldb
+        #- /PATH-TO-ZOTERO/Zotero/:/data
     environment:
       - DISPLAY=${DISPLAY}
       - TZ=${TZ}
@@ -24,8 +29,4 @@ services:
       - QT_IM_MODULE=${QT_IM_MODULE}
       - GTK_IM_MODULE=${GTK_IM_MODULE}
     # https://docs.docker.com/compose/compose-file/compose-file-v3/
-    privileged: true
-    #ports:  
-    #  - "8080:8080"
-      # docker: host
-      
+    privileged: false
