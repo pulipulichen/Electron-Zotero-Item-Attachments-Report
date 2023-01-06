@@ -207,6 +207,25 @@ module.exports = {
           return window.alert('Not found')
         }
         
+        rows.sort((a, b) => {
+          let aMatches = a.title.match(/\d+/)
+          let bMatches = b.title.match(/\d+/)
+          
+          for (let i = 0; i < aMatches.length; i++) {
+
+            if (!aMatches[i] || !bMatches[i]) {
+              return a.title.localeCompare(b.title)
+            }
+
+            let aID = Number(aMatches[i])
+            let bID = Number(bMatches[i])
+
+            if (aID !== bID) {
+              return (aID - bID)
+            }
+          }
+        })
+
         this.attachmentRows = rows
         this.isLoading = false
         this.coverURL = ''
