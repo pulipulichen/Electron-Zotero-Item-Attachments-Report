@@ -51,3 +51,5 @@ RUN mkdir /data
 
 RUN chmod +x /app/startup.sh
 CMD ["bash", "/app/startup.sh"]
+
+RUN npm install -g npm@8.19.2 electron

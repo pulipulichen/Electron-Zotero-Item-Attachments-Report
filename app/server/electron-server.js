@@ -27,6 +27,7 @@ let events = {
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
+and attachmentItem.itemID not in (select itemID from deletedItems)
 and fields.fieldName = 'title'
 and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
@@ -40,6 +41,7 @@ order by title asc`
 from items as bookItem, items as attachmentItem, itemAttachments, fields, itemDataValues, itemData
 where itemAttachments.parentItemID = bookItem.itemID
 and itemAttachments.itemID = attachmentItem.itemID
+and attachmentItem.itemID not in (select itemID from deletedItems)
 and fields.fieldName = 'title'
 and fields.fieldID = itemData.fieldID
 and itemData.valueID = itemDataValues.valueID
