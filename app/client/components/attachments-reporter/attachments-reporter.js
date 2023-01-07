@@ -210,6 +210,10 @@ module.exports = {
         rows.sort((a, b) => {
           let aMatches = a.title.match(/\d+/)
           let bMatches = b.title.match(/\d+/)
+
+          if (!aMatches || !bMatches) {
+            return a.title.localeCompare(b.title)
+          }
           
           for (let i = 0; i < aMatches.length; i++) {
 

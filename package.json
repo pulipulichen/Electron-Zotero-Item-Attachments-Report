@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "docker-compose build",
-    "up": "docker-asset/docker-compose-root-up.sh"
+    "up": "docker-asset/docker-compose-root-up.sh",
+    "startup": "./app/startup.sh"
   },
   "keywords": [
     "PWA",

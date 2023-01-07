@@ -51,7 +51,7 @@ and substr(itemAttachments.path, 9) IS NOT NULL
 order by title asc`
     }
     
-    //console.log(sql)
+    // console.log(sql)
     
     db.all(sql, function(err,rows){
       // console.log(rows)
