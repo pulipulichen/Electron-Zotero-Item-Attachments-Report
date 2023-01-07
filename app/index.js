@@ -65,29 +65,37 @@ function createWindow() {
     win = null
   })
 
-  
+  let globalShortcutRegister = () => {
+    globalShortcut.register('Ctrl+W', () => {
+      if (win.isFocused()) {
+        win.close()
+      }
+    })
+    
+    let escPressed = false
+    globalShortcut.register('ESC', () => {
+      if (!win.isFocused()) {
+        return false
+      }
+      
+      if (escPressed === true) {
+        win.close()
+        return false
+      }
+      
+      escPressed = true
+      setTimeout(() => {
+        escPressed = false
+      }, 500)
+    })
+  }
 
-  globalShortcut.register('Ctrl+W', () => {
-    if (win.isFocused()) {
-      win.close()
-    }
+  app.on('browser-window-focus', () => {
+    globalShortcutRegister()
   })
-  
-  let escPressed = false
-  globalShortcut.register('ESC', () => {
-    if (!win.isFocused()) {
-      return false
-    }
-    
-    if (escPressed === true) {
-      win.close()
-      return false
-    }
-    
-    escPressed = true
-    setTimeout(() => {
-      escPressed = false
-    }, 500)
+
+  app.on('browser-window-blur', () => {
+    globalShortcut.unregisterAll()
   })
 }
 
