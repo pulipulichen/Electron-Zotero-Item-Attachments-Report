@@ -8,9 +8,10 @@
     "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/Electron-Zotero-Item-Attachments-Report.git"
   },
   "scripts": {
+    "start": "docker-asset/docker-compose-root-up.sh",
     "build": "docker-compose build",
     "up": "docker-asset/docker-compose-root-up.sh",
-    "startup": "./app/startup.sh"
+    "startup-local": "./app/startup.sh"
   },
   "keywords": [
     "PWA",

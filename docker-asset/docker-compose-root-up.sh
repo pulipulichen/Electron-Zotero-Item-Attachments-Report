@@ -1,3 +1,8 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
 #docker-compose build
 
 #export MY_UID="$(id -u)"

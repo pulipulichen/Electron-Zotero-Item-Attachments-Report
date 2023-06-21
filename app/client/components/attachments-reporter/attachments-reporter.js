@@ -290,5 +290,37 @@ module.exports = {
       
       ClipboardUtils.copyPlainString(url)
     },
+    copyList () {
+      let output = []
+
+      output.push(this.attachmentsText)
+      output.push('====')
+      output.push(this.bookText)
+
+      ClipboardUtils.copyPlainString(output.join('\n'))
+    },
+    downloadList () {
+      const filename = 'test.txt';
+      const content = 'hello world';
+      this.downloadFile(filename, content);
+    },
+    downloadFile(filename, content) {
+      // Create a blob with the content
+      const blob = new Blob([content], { type: 'text/plain' });
+    
+      // Create a temporary URL for the blob
+      const url = URL.createObjectURL(blob);
+    
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+    
+      // Simulate a click on the link to trigger the download
+      link.click();
+    
+      // Clean up the temporary URL
+      URL.revokeObjectURL(url);
+    }
   }
 }
