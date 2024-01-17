@@ -11,7 +11,8 @@
     "start": "docker-asset/docker-compose-root-up.sh",
     "build": "docker-compose build",
     "up": "docker-asset/docker-compose-root-up.sh",
-    "startup-local": "./app/startup.sh"
+    "startup-local": "./app/startup.sh",
+    "bash": "docker-asset/docker-compose-root-bash.sh"
   },
   "keywords": [
     "PWA",

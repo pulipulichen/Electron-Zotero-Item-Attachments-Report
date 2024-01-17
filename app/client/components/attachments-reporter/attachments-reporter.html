@@ -130,13 +130,21 @@
       Output
     </h3>
 
-    <a class="ui fluid positive button" @click="copyList">
-      Copy List
-    </a>
 
     <h4>
       Step 1. Copy attachments to Chapter sheet and get the links of item files.
     </h4>
+
+    <div class="ui fluid action input">
+      <button class="ui button" type="button" @click.stop.prevent="copyColabURL">COPY</button>
+      <input type="url" value="https://colab.research.google.com/drive/1iQ3tL4OG9F9fMfGLY2V4G7SHAfE6Ehci?usp=sharing"
+        onfocus="this.select()" />
+    </div>
+
+    <a class="ui fluid positive button" @click="copyList">
+      Copy List
+    </a>
+
     
     <div class="field">
       <label>

@@ -299,6 +299,9 @@ module.exports = {
 
       ClipboardUtils.copyPlainString(output.join('\n'))
     },
+    copyColabURL () {
+      ClipboardUtils.copyPlainString('https://colab.research.google.com/drive/1iQ3tL4OG9F9fMfGLY2V4G7SHAfE6Ehci?usp=sharing')
+    },
     downloadList () {
       const filename = 'test.txt';
       const content = 'hello world';
