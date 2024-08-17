@@ -28,7 +28,8 @@ module.exports = {
       isLoading: false,
       coverURL: '',
       
-      zoteroAddedTag: 'ToReadListAdded'
+      zoteroAddedTag: 'ToReadListAdded',
+      attachmentsText: ``
     }
   },
   async mounted () {
@@ -65,6 +66,9 @@ module.exports = {
     zoteroAddedTag () {
       this.dataSave()
     },
+    attachmentRows () {
+      this.setAttachmentsText()
+    }
   },
   computed: {
     attachmentRowsFiltered () {
@@ -79,20 +83,6 @@ module.exports = {
         
         return false
       })
-    },
-    attachmentsText () {
-      return this.attachmentRowsFiltered.map(attachment => {
-        return [
-          attachment.title,
-          '',
-          attachment.key,
-          0,
-          '',
-          'FALSE',
-          this.bookTitle,
-          dayjs().subtract(7, 'day').format('M/DD/YYYY hh:mm:ss')
-        ].join('\t')
-      }).join('\n')
     },
     bookTitle () {
       if (this.attachmentRowsFiltered.length === 0) {
@@ -230,7 +220,7 @@ module.exports = {
           }
         })
 
-        this.attachmentRows = rows
+        this.attachmentRows = this.attachmentRows.slice(0,0).concat(rows)
         this.isLoading = false
         this.coverURL = ''
         
@@ -239,6 +229,7 @@ module.exports = {
         }
         
         setTimeout(() => {
+          // this.setAttachmentsText()
           this.$refs.CopyAttachmentsTextButton.scrollIntoView()
           this.$refs.CopyAttachmentsTextButton.focus()
           this.isLoading = false
@@ -324,6 +315,48 @@ module.exports = {
     
       // Clean up the temporary URL
       URL.revokeObjectURL(url);
+    },
+
+    async setAttachmentsText () {
+      let output = []
+      for (let i = 0; i < this.attachmentRowsFiltered.length; i++) {
+        let attachment = this.attachmentRowsFiltered[i]
+        output.push([
+          attachment.title,
+          '',
+          attachment.key,
+          0,
+          '',
+          'FALSE',
+          this.bookTitle,
+          dayjs().subtract(7, 'day').format('M/DD/YYYY hh:mm:ss'),
+          '',
+          await this.getAttachmentPages(attachment)
+        ].join('\t'))
+      }
+      this.attachmentsText = output.join('\n')
+      // LangChain入门指南：构建高可复用、可扩展的LLM应用程序
+
+    },
+    
+    async getAttachmentPages (attachment) {
+      if (attachment.title.endsWith('.pdf') === false) {
+        return ''
+      }
+
+      let callbackID = ElectronUtils.getCallbackID('getAttachmentPages')
+      
+      return new Promise((resolve, reject) => {
+        ipcRenderer.on(callbackID, (event, pages) => {
+          resolve(pages)
+        })
+
+        ipcRenderer.send('getAttachmentPages', {
+          title: attachment.title,
+          key: attachment.key
+        }, callbackID);
+      })
     }
+
   }
 }

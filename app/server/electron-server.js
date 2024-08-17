@@ -8,6 +8,22 @@ const { exec } = require("child_process");
 
 const sqlite3 = require("sqlite3").verbose();
 
+function getReturnNumber(command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+      } else {
+        // Assuming the return number is on a single line and can be converted to a number
+        const match = stdout.match(/\d+/);
+        const returnNumber = match ? parseInt(match[0], 10) : null;
+        resolve(returnNumber);
+      }
+    });
+  });
+}
+
+
 let events = {
   getAttachments: function (event, parameters, _callback_id) {
 
@@ -61,6 +77,21 @@ order by title asc`
       
       event.sender.send(_callback_id, rows)
     })
+  },
+
+  getAttachmentPages: async function (event, parameters, _callback_id) {
+    let {title, key} = parameters
+
+    if (title.endsWith('.pdf') === false) {
+      return event.sender.send(_callback_id, '')
+    }
+
+    let pdfPath = path.join('/data/storage/', key, title)
+    if (fs.existsSync(pdfPath)) {
+      let pages = await getReturnNumber(`/count-pdf-pages.sh "${pdfPath}"`)
+      return event.sender.send(_callback_id, pages)
+    }
+    return event.sender.send(_callback_id, pdfPath)
   }
 }
 

@@ -12,5 +12,6 @@ export VIDEO_GID=`getent group video | cut -d: -f3`
 
 #docker-compose run app bash
 #docker-compose up
+docker-compose down
 docker-compose run app /app/startup.sh
 
